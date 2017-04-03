@@ -23,7 +23,6 @@
                      :button-classes="planData.buttonClasses"
                      :card-id="planData.cardId"
                      v-on:card-selected="cardSelected"
-                     :class="chooseMostUsedPlan(planData.cardId)"
           >
             <div slot="body" class="fit">
               <component :is="planData.planBenefitComponent"></component>
@@ -34,7 +33,7 @@
     </div>
   </div>
 </template>
-<script>
+<script type="text/javascript">
   /* eslint-disable */
   import cardPlanOne from './cardPlanOne.vue'
   import cardPlanTwo from './cardPlanTwo.vue'
@@ -98,8 +97,7 @@
     },
     computed: {
       componentInstanceBySelectedPlanType () {
-        if (this.cardType === 'Vertical One') { return 'card-plan-one'}
-        if (this.cardType === 'Horizontal One') { return 'card-plan-two'}
+        return this.cardType === 'Vertical One' ? 'card-plan-one' : 'card-plan-two'
       }
     },
     methods: {
@@ -115,5 +113,9 @@
 <style scoped>
   .inline-block {
     margin-bottom: 7%;
+  }
+  .label{
+    padding: 1.2rem 0.7rem;
+    min-width: 260px;
   }
 </style>

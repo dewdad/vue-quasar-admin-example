@@ -1,5 +1,19 @@
 <template>
-  <q-drawer ref="leftDrawer">
+  <q-drawer ref="leftDrawer" v-show="getLayoutNeeded">
+    <div id="profile">
+      <img src="./img/avatar-1.svg" id="avatar" class="inline-block">
+      <div id="user-name">
+        <span class="text-white">Greldon</span>
+        <hr>
+      </div>
+      <div id="user-actions">
+        <button class="bordered blue small" ><i>person</i></button>
+        <button class="bordered blue small" ><i>lock</i></button>
+        <router-link to="login-one">
+          <button class="bordered blue small" ><i>exit_to_app</i></button>
+        </router-link>
+      </div>
+    </div>
     <div class="list no-border platform-delimiter light-paragraph">
       <div class="list-label">Dashboard</div>
       <q-drawer-link icon="home" :to="{path: '/', exact: true}">
@@ -12,12 +26,21 @@
       <q-drawer-link icon="check" :to="{path: '/embeeded', exact: true}">
         Embeeded validations
       </q-drawer-link>
+      <q-drawer-link icon="filter_1" :to="{path: '/advanced-form-one', exact: true}">
+        Adv. Form One
+      </q-drawer-link>
+      <q-drawer-link icon="filter_2" :to="{path: '/advanced-form-two', exact: true}">
+        Adv. Form Two
+      </q-drawer-link>
       <div class="list-label ">Pages</div>
       <q-drawer-link icon="lock_open" :to="{path: '/login-one', exact: true}">
         Login One
       </q-drawer-link>
       <q-drawer-link icon="attach_money" :to="{path: '/pricing', exact: true}">
         Pricing
+      </q-drawer-link>
+      <q-drawer-link icon="move_to_inbox" :to="{path: '/drag-and-drop', exact: true}" class="gt-sm">
+        Drag and Drop
       </q-drawer-link>
     </div>
     <div class="fixed-bottom text-center light text-italic">
@@ -27,8 +50,12 @@
     </div>
   </q-drawer>
 </template>
-<script>
+<script type="text/javascript">
+  import { mapGetters } from 'vuex'
   export default {
+    computed: {
+      ...mapGetters(['getLayoutNeeded'])
+    }
   }
 </script>
 <style scoped>
@@ -46,12 +73,27 @@
   .router-link-active .item-primary{
     color: #027be3;
   }
-  img:nth-child(1) {
+  .fixed-bottom a img {
     width: 25px;
     height: 25px;
   }
-  img:nth-child(2) {
-    width: 30px;
-    height: 30px;
+  #avatar{
+    padding: 20px;
+  }
+  #profile {
+    height: 130px;
+    background-color: #009688;
+  }
+  #user-name {
+    left: 90px;
+    bottom: 77px;
+    position: relative;
+    width: 159px;
+  }
+  #user-actions {
+    left: 90px;
+    bottom: 71px;
+    position: relative;
+    width: 171px;
   }
 </style>

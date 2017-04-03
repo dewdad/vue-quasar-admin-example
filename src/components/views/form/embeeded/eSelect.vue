@@ -1,10 +1,14 @@
 <template>
   <div>
-    <div class="floating-label" :class="shakeDiv">
-      <input required class="full-width" :class="borderColor"
-             :value="value"
-             @input="change($event.target.value)">
-      <label :class="labelColor">{{label}}</label>
+    <div class="floating-label" :class="labelColor">
+      <q-select :type="type"
+                class="full-width"
+                :class="borderColor"
+                :options="options"
+                :label="label"
+                :value="value"
+                @input="change($event)"
+                ></q-select>
       <transition-group name="slide-fade">
         <span class="label text-red"
               v-for="(key, index) in messageKeys"
@@ -34,8 +38,12 @@
       value: {
         required: true
       },
+      type: {
+        required: true
+      },
       validationMessages: {},
-      label: {}
+      label: {},
+      options: {}
     },
     computed: {
       messageKeys () {
@@ -48,15 +56,12 @@
         return this.validation.$invalid && this.validation.$dirty
       },
       labelColor () {
-        return this.validAndDirty ? 'text-green' : '' ||
-          this.invalidAndDirty ? 'text-red ' : ''
+        return this.validAndDirty ? 'label-success' : '' ||
+          this.invalidAndDirty ? 'label-error animate-pop' : ''
       },
       borderColor () {
         return this.validAndDirty ? 'has-success' : '' ||
           this.invalidAndDirty ? 'has-error' : ''
-      },
-      shakeDiv () {
-        return this.invalidAndDirty ? 'animate-pop' : ''
       }
     },
     data () {
@@ -73,6 +78,9 @@
 <style scoped>
   .has-success {
     border-bottom: 2px solid #4caf50 !important;
+  }
+  .label-success .q-picker-textfield-label {
+    color: #4caf50;
   }
   i {
     position: absolute;
